@@ -1,0 +1,28 @@
+###########
+# READ ME #
+###########
+
+This folder contains the simulation setup for SAXS-guided structure-based simulations of the open-to-closed conformational transition of adenylate kinase.
+
+*****************
+* List of files *
+*****************
+
+- 4AKE_error_reduced.dat: reference scattering
+- oc_error_reduced.dat:	  difference scattering data (target data)
+- conf.gro:		  coordinate file of initial structure
+- saxs_conf.gro           extended coordinate file of initial structure with virtual scattering sites 
+- template.mdp:		  molecular dynamics parameters file
+- topol.top:		  structure-based topology file (structure-based potential)
+- waxs.itp:		  topology include file containing scattering topology
+
+In template.mdp, bias weight and temperature have to be specified according to the parameter combination tested. 
+In the GROMACS 5 version including the scattering-guided MD extension, simulation input files can be preprocessed to obtain the run input file:
+
+$ gmx grompp -f template.mdp -c saxs_conf.gro -p topol.top -o run.tpr
+
+The simulation can be started with:
+
+$ gmx mdrun -v -deffnm run -waxs_ref 4AKE_error_reduced.dat -waxs_diff oc_error_reduced.dat -sfac $GMXDATA/top/sfactor_amino_acid_ds_Fourier.xml -waxs_out saxs_out -waxs_alpha saxs_alpha
+
+The interested reader is referred to Weiel et al. Rapid interpretation of small-angle X-ray scattering data. PLoS Comput. Biol.15, e1006900, DOI: 10.1371/journal.pcbi.1006900 (2019).

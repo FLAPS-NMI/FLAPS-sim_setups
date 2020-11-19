@@ -1,0 +1,54 @@
+; Sample mdp file for XS guided MD simulations in GROMACS5 using SBMs
+;
+; Run Control
+integrator          = sd        ;leap-frog algorithm integrator
+ld-seed             = 1059      ;seed to initialize random generator for thermal noise for stochastic dynamics
+dt	            = 0.0005    ;time step in ps
+nsteps		    = 2076900 	;number of steps (2076900)
+;
+; XS parameters
+waxs-type           = Debye     ;Calculate scattering intensities and refinement forces using Debye eq.
+waxs-fc             = 		;coupling constant for SAXS refinement
+waxs-nstout         = 2100      ;period for writing calculated scattering intesities to file
+waxs-nstcalc        = 10        ;period for calculation and appplication of SAXS forces
+debye-alpha-mode    = 0         ;Keep alpha constant at (debye-alpha-min + debye-alpha-max)/2.
+debye-alpha-min     = 1.0
+debye-alpha-max     = 1.0
+;
+; Output Control
+nstxout		    = 2100  	;steps elapsing between writing coordinates to output trajectory file
+nstcalcenergy       = 1050      ;steps elapsing between calculation of energies
+nstenergy	    = 2100      ;steps elapsing between writing energies to energy file, multiple of nstcalcenergy
+nstlog		    = 2100      ;steps elapsing between writing energies to log file
+nstcomm             = 1050      ;frequency for center of mass motion removal
+;
+; Neighbor Searching
+cutoff-scheme       = group     ;Generate pair list for groups of atoms.
+ns-type             = grid      ;Make grid in box, only check atoms in neighboring grid cells when constructing new neighbor list every nstlist steps.
+nstlist             = 15        ;frequency to update neighbor list
+pbc		    = xyz       ;periodic BC in all directions
+;
+; Electrostatics
+coulombtype	    = Cut-off   ;twin range cut-off
+rcoulomb	    = 1.5       ;distance of Coulomb cut-off
+;
+; VdW
+vdwtype             = Cut-off   ;twin range cut-off
+rvdw		    = 1.5       ;distance of VdW cut-off
+;
+; Temperature Coupling
+tc-grps             = Protein   ;group(s) to couple separately to temperature bath
+tau-t		    = 0.5       ;time constant for coupling
+ref-t		    =           ;reference temperature for coupling
+;
+; Pressure Coupling
+pcoupl              = no        ;no pressure coupling
+;
+; Velocity Generation
+gen-vel		    = yes       ;velocity generation according to Maxwell distribution
+gen-temp            =           ;temperature for Maxwell distribution
+gen-seed            = 9         ;initialize random generator for random velocities
+;
+; Bonds
+continuation	    = no        ;Apply constraints to start configuration, do not reset shells.
+constraints	    = none 	;No constraints except for those defined explicitly in topology.
