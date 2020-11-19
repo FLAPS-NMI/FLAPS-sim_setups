@@ -2,5 +2,6 @@
 # READ ME #
 ###########
 
-This folder contains input files for SAXS-guided structure-based simulations of lysine-, arginine-, ornithine-binding protein (LAO/) and adenylate kinase (ADK/).
+This folder contains input files for SAXS-guided structure-based simulations of lysine-, arginine-, ornithine-binding protein (LAO/) and adenylate kinase (ADK/). 
+A detailed description of each subdirectory's content can be found in the respective subdirectory's README.
 In addition, an exemplary FLAPS optimization setup (setup.py) is given.
